@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		width:300px;
+		margin:300px auto;
+	}
+	#box img{
+		width:300px;
+	}
+  </style>
+  <title>Document</title>
+ </head>
+ <body>
+	<div id="box">
+		<img src="images/mnls.jpg" alt="" width='300' />
+	</div>
+ </body>
+ <script type="text/javascript" src='js/addEvent.js'></script>
+ <script type="text/javascript">
+	var oImg = document.getElementsByTagName('img')[0];
+	var num = 1;
+
+	//添加滚轮事件
+	addEvent(oImg,'mousewheel',fn,false);
+
+	function fn(e){
+		num += e.wheel/1200;
+		oImg.style.transform = 'scale('+num+')';
+		console.log(num)
+	}
+
+ </script>
+</html>

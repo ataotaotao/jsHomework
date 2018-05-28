@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+		body,ul,h3{
+			margin:0;
+			padding:0
+		}
+		ul{
+			list-style:none;
+		}
+		a{
+			text-decoration:none;
+			color:#000;
+		}
+		h1,h2,h3,h4,h5,h6{
+			font-size:16px;
+			font-weight:normal;
+		}
+		#box{
+			width:100px;
+			margin:50px auto;
+			text-align:center;
+		}
+		#box > div {
+			border:1px solid #000;
+		}
+		#box > div h3{
+			line-height:35px;
+			background-color:#b164ff;
+			font-size:18px;
+			font-weight:bold;
+			color:#fff;
+		}
+		ul{
+			display:none;
+		}
+		#box > div ul li{
+			line-height:30px;
+			border:1px dashed gray;
+		}
+        .block{
+            display:block;
+        }
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="top">
+			<h3>大佬</h3>
+			<ul>
+				<li>
+					<a href="#">小白</a>
+				</li>
+				<li>
+					<a href="#">墨哈</a>
+				</li>
+				<li>
+					<a href="#">桂仔</a>
+				</li>
+			</ul>
+		</div>
+		<div class="middle">
+			<h3>学神</h3>
+			<ul>
+				<li>
+					<a href="#">小青年</a>
+				</li>
+				<li>
+					<a href="#">兔姐姐</a>
+				</li>
+				<li>
+					<a href="#">殇姐姐</a>
+				</li>
+			</ul>
+		</div>
+		<div class="bottom">
+			<h3>菜鸡</h3>
+			<ul>
+				<li>
+					<a href="#">南柯</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+ </body>
+ <script>
+ 	var oH=document.getElementsByTagName('h3');
+ 	var aLi=document.getElementsByTagName('li');
+ 	var aUl=document.getElementsByTagName('ul');
+    var num=0;
+
+    var onoff=true;
+    // aUl[0].className='block';
+
+
+ 	//点击h3  ul出现 再次点击消失
+    for( var i=0;i<3;i++){
+        oH[i].index=i;
+        // var a=oH[i].index;
+        // aUl[this.index].className='block';
+        oH[i].onclick = function(){
+            // aUl[num].className='';
+            onoff=!onoff;
+            // this.demo=i;
+            // if(onoff){
+            //     // aUl[num].className='';
+            //     aUl[this.index].className='block';//此处括号中用i不行，因为for循环执行的很快，用i的花获取到的就是2，用自定义属性名就可以获取到相应的i。
+            //     // num=this.index;
+            // }else{
+            //     // aUl[num].className='';
+            //     aUl[this.index].className='';//此处括号中用i不行，因为for循环执行的很快，用i的花获取到的就是2，用自定义属性名就可以获取到相应的i。
+            //     // num=this.index;
+            // }
+            // // onoff=false;
+            // if( this.index%2){
+            //     onoff=false;
+            // }else{
+            //     onoff=true;
+            // }
+            // num=this.index;
+            // aUl[num].className='block';
+            // if( aUl[num].className=='block' & onoff=false){
+            //     aUl[num].className='';
+            //     num=this.index;
+            //     aUl[num].className='block';
+
+            // }
+            // onoff=false;
+            if(onoff){//代表了展开了
+                aUl[this.index].className='';
+            }else{//代表了没展开
+                aUl[this.index].className='block';
+            }
+            // if(this.index%2){
+            //     aUl[this.index].className='';
+            // }else{
+            //     aUl[this.index].className='block';
+            // }
+
+        }
+    }
+
+    //鼠标进入li其他的li颜色消失。
+
+    // for( var i=0;i<7;i++){
+    //     aLi[i].onmouseenter=function(){
+    //         this.style.backgroundColor='#ccc';
+    //     }
+    //     aLi[i].onmouseleave=function(){
+    //         this.style.backgroundColor='';
+    //     }
+    // }
+
+    //鼠标点击li，其他的li颜色消失
+    var a=0;
+    for( var i=0;i<7;i++){
+        aLi[i].demo=i;
+        aLi[i].onclick=function(){
+            aLi[a].style.backgroundColor = 'transparent';
+            this.style.backgroundColor='red';
+            a=this.demo;
+        }
+    }
+
+
+ </script>
+</html>

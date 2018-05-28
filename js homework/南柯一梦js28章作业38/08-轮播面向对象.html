@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>hello world~!!</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+    <style>
+        *{margin: 0;padding: 0;}
+        body{font:16px/1.5 'Microsoft Yahei';}
+        .clearfix:after{content:'';display:block;clear:both;}
+        .fl{float:left;}
+        .fr{float:right;}
+        #banner{
+            width:1130px;
+            overflow:hidden;
+            height:500px;
+            margin:auto;
+            position: relative;
+
+        }
+        #banner ul li{
+            list-style: none;
+            position: absolute;
+            top:0;
+            display:none;
+        }
+        #banner ul li.on{
+            display: block;
+        }
+        #banner ol{
+            position: absolute;
+            width:240px;
+            bottom:0;
+            left:50%;
+            margin-left:-120px;
+
+        }
+        #banner ol li{
+            display:inline-block;
+            height:5px;
+            width:30px;
+            margin:2px;
+            background: rgba(0,0,0,0.5);
+            cursor:pointer;
+        }
+        #banner ol li.on{
+            background: #f00;
+        }
+        #banner a{
+            position: absolute;
+            width:60px;
+            height:50px;
+            text-decoration: none;
+            background: rgba(0,0,0,0.5);
+            color:#fff;
+            font-size:50px;
+            text-align: center;
+            line-height:40px;
+            top:50%;
+            margin-top:-25px;
+
+        }
+        #banner a.next{
+            right:0px;
+        }
+        #banner a:hover{
+            background: rgba(0,0,0,0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul>
+            <li class='on'><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.webp" alt=""></li>
+            <li><img src="images/4.webp" alt=""></li>
+            <li><img src="images/5.webp" alt=""></li>
+            <li><img src="images/4.webp" alt=""></li>
+
+        </ul>
+        <ol>
+            <li class='on'></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+        <a class='prev' href="javascript:void(0)"> < </a>
+        <a class='next' href="javascript:void(0)"> > </a>
+
+
+    </div>
+</body>
+    <script>
+
+        function Banner(){
+            this.aImg = document.querySelectorAll('ul li');
+            this.aTab = document.querySelectorAll('ol li');
+            this.aA = document.querySelectorAll('a');
+            this.num = 0;
+            //按钮点击
+            var _this = this;
+            for(var i=0;i<this.aTab.length;i++){
+                   this.aTab[i].index = i;
+                   this.aTab[i].onclick = function(){
+                        _this.tab_click.call(_this,this);//这个_this用的是全局中的this，这个call里面传入的是在tab_click里面的this，还有index的this是aTab
+                   };
+
+            }
+
+            //左右点击
+            for(var i=0;i<this.aA.length;i++){
+                   this.aA[i].index = i;
+                   this.aA[i].onclick = function(){
+                        _this.btn_click.call(_this,this);
+                   };
+            }
+
+        }
+
+
+        Banner.prototype.tab_click =  function(obj){
+            this.change(function(){
+                this.num = obj.index;
+            })
+       }
+
+       Banner.prototype.btn_click = function(obj){//这里用到了this.index所以得传入obj
+            this.change(function(){
+                if(obj.index){//1 右
+                    this.num++;
+                    this.num %=this.aTab.length;
+                }else{// 0  左
+                    this.num--;
+                    if(this.num<0){
+                       this.num =  this.aTab.length-1;
+                    }
+                }
+            })
+       }
+
+       Banner.prototype.change  = function(fn){
+            this.aTab[this.num].className = '';
+            this.aImg[this.num].className = '';
+            fn.call(this);
+            this.aTab[this.num].className = 'on';
+            this.aImg[this.num].className = 'on';
+       }
+
+
+        new Banner();
+
+
+
+
+
+
+    </script>
+</html>

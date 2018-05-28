@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                width:630px;
+                height:280px;
+                padding:10px;
+                border:1px solid #ccc;
+                border-radius:5px;
+                margin:100px auto;
+            }
+            .btn{
+                width:630px;
+                height:50px;
+            }
+            .btn input{
+                display:inline-block;
+                width:245px;
+                height:30px;
+                line-height:30px;
+                vertical-align:middle;
+            }
+            .btn button{
+                display:inline-block;
+                width:50px;
+                line-height:30px;
+                vertical-align:middle;
+            }
+            .content{
+                width:630px;
+                height:230px;
+                border:1px solid #ccc;
+                line-height:30px;
+            }
+            .content span{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <div class="btn">
+                <input type="text" name='hello' >
+                <button>查找</button>
+                <input type="text" name='name'>
+                <button>替换</button>
+            </div>
+            <div class="content">随着网络时代的发展，我们的医疗也跟着时代在进步。医疗不再限于实地医疗，这一段时间以来，网络医疗已经兴起，也就是互联网医疗。互联网医疗的兴起，意味着我们可以足不出户，在家轻轻松松就完成身体健康的监控，能够做到时时刻刻掌握自己的身体状况。无论是自己的身体有什么异常，或者是已经生病了，都可以很快的做出反应,我们的医疗也跟着时代在进步。医疗不再限于实地医疗，这一段时间以来，网络医疗已经兴起，也就是互联网医疗。互联网医疗的兴起，意味着我们可以足不出户，在家轻轻松松就完成身体健康的监控</div>
+        </div>
+    </body>
+    <script>
+        var aInp=document.getElementsByTagName('input');
+        var aBtn=document.getElementsByTagName('button');
+        var oCont=document.getElementsByClassName('content')[0];
+        //console.log( oCont.innerHTML );
+        var text=oCont.innerHTML;
+        var arr;
+
+        //点击查找换颜色
+        aBtn[0].onclick=function(){
+            arr=text.split( aInp[0].value );//在获取到input的内容时用value，不是用innerHTML;
+            //console.log( text );
+            oCont.innerHTML = arr.join( '<span>'+aInp[0].value+'</span>');
+            //text = arr.join( '<span>'+aInp[0].innerHTML+'</span>');
+            //console.log( text );
+            text=arr.join( aInp[0].value);//更新已经改变过的内容，便于第二次查询
+        }
+        aBtn[1].onclick=function(){
+            oCont.innerHTML=arr.join( aInp[1].value );
+            text=arr.join( aInp[1].value );//更新
+        }
+    </script>
+</html>

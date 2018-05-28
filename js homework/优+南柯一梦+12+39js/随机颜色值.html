@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                width:500px;
+                height:500px;
+                margin:200px auto;
+            }
+            #box span{
+                display:block;
+                float:left;
+                width:50px;
+                height:50px;
+                font-size:12px;
+                color:#fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+    </body>
+    <script src='js/随机颜色值之十六进制.js'></script>
+    <script>
+        var oBox=document.getElementById('box');
+
+        // for( var i=0;i<100;i++){
+        //     oBox.innerHTML += '<span style="background-color:'+color_sixteen()+'">'+(i+1)+'</span>';
+        // }
+        var num=0;
+        //var timer=setTimeout( run,100 );
+
+        function run(){
+            num++;
+            oBox.innerHTML += '<span style="background-color:'+color_sixteen()+'">'+color_sixteen()+'</span>';
+            if( num<100 ){
+                setTimeout( run,100 );
+            }
+        }
+        run();
+    </script>
+</html>
+

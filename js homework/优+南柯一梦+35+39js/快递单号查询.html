@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,ul{
+		margin:0;
+		padding:0;
+	}
+	ul{
+		list-style:none;
+	}
+	#box{
+		width:520px;
+		padding:20px;
+		background-color:#ddd;
+		margin:50px auto;
+	}
+	#box p{
+		display:none;
+		width:100%;
+		line-height:25px;
+		color:red;
+	}
+	#box p.on{
+		display:block;
+	}
+	#box .content{
+		width:480px;
+		padding:0 20px;
+	}
+	#box .content li:nth-child(1){
+		color:red;
+	}
+	#box .content li{
+		padding:10px 0;
+	}
+	.content li p{
+		line-height:25px;
+	}
+	
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="input">
+			公司名称：<input type="text" value='申通'/><br/>
+			快递单号：<input type="text" />
+			<button>查询</button><br/>
+		</div>
+		<p>输入信息不正确</p>
+		<ul class="content">
+			<!-- <li></li> -->
+		</ul>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aInp = document.getElementsByTagName('input');
+	var oBtn = document.getElementsByTagName('button')[0];
+	var oP = document.getElementsByTagName('p')[0];
+	var oUl = document.getElementsByTagName('ul')[0];
+	
+
+	var json;
+	var arr_time=[];
+	var arr_info = [];
+	//用正则验证输入单号是否正确
+	oBtn.onclick = function(){
+		var reg = /^\d{13}$/;
+		if(reg.test(aInp[1].value) && aInp[0].value == '申通'){
+			oP.className = '';
+
+
+			//创建ajax
+			var xhr = createXhr();
+
+			//发送数据
+
+			xhr.open('get','s.json',true);
+			
+			//xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+			xhr.send(null);
+
+			xhr.onreadystatechange = function(){
+				if( this.readyState ==4){
+					if(this.status ==200){
+						json = JSON.parse(xhr.responseText);
+						//console.log(json)
+						var date = json.data.info.context;
+						
+						for(var i=0;i<date.length;i++){
+							arr_time[i] = date[i].time;
+							arr_info[i] = date[i].desc;
+							var li = document.createElement('li');
+							var div = document.createElement('div');
+							div.innerHTML = date[i].desc
+							var span = document.createElement('span');
+							var date_T = new Date( Number(arr_time[i]+'000') );
+							var year = date_T.getFullYear();
+							var month = date_T.getMonth()+1;
+							var date_de = date_T.getDate();
+							var hour = date_T.getHours();
+							var min = date_T.getMinutes();
+							var sec = date_T.getSeconds();
+							if(hour >12){
+								span.innerHTML = '上午';
+							}else{
+								span.innerHTML = '下午';
+							}
+							li.innerHTML = year+'年'+month+'月'+date_de+'日 '+span.innerHTML+' '+hour+':'+min+':'+sec+'<br/>'+div.innerHTML;
+							oUl.appendChild(li);
+						}
+					}
+				}
+			}
+			
+		}else{
+			oP.className = 'on';
+		}
+	}
+
+
+	function createXhr(obj){
+		var xhr;
+		if(window.XMLHttpRequest){
+			xhr = new XMLHttpRequest();
+		}else{
+			try{
+				xhr = new ActiveXObject('Msxml.XMLHTTP.6.0');
+			}catch(e){
+				xhr = new ActiveXObject('Msxml.XMLHTTP.3.0');
+			}
+		}
+
+		return xhr;
+	}
+
+
+	//快递单号为  3340941887363
+ </script>
+</html>

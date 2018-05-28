@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,h3,p{
+		margin:0;
+		padding:0;
+	}
+	li{
+		list-style:none;
+		float:left;
+	}
+	a{
+		text-decoration:none;
+		color:#000;
+	}
+	i,b{
+		font-style:normal;
+	}
+	.clearfix:after{
+		content:'';
+		display:block;
+		clear:both;
+	}
+	#box{
+		width:100%;
+		height:580px;
+		border:1px solid transparent;
+		background:linear-gradient(to bottom,#c1c1ff 30%,#ff5402 90%);
+	}
+	#box .content{
+		width:800px;
+		height:530px;
+		margin:50px auto 0;
+	}
+	#box .content .left{
+		float:left;
+		width:390px;
+		height:480px;
+		padding:50px 5px 0;
+		background-color:#fff;
+	}
+	.left .left-top{
+		line-height:50px;
+		text-align:center;
+	}
+	.left .left-top h3{
+		float:left;
+		width:90px;
+		font-size:16px;
+		font-weight:normal;
+		color:#f9a886;
+	}
+	.left .left-top li:nth-of-type(1){
+		width:70px;
+	}
+	.left .left-top li:nth-of-type(4){
+		width:55px;
+	}
+	.w40{
+		width:40px;
+	}
+	.left-bottom p{
+		float:left;
+		border:1px solid #000;
+		padding:10px;
+		margin:5px;
+	}
+	.left-bottom p span{
+		padding-right:2px;
+		border-right:1px solid #ccc;
+	}
+	#box .content .right{
+		float:right;
+		width:390px;
+		height:480px;
+		padding:50px 5px 0;
+		background-color:rgba(0,0,0,.5);
+	}
+	.right b{
+		display:block;
+		float:left;
+		border:1px solid #fff;
+		padding:10px;
+		margin:5px;
+		color:white;
+	}
+	.left .left-top li:hover a{
+		color:red;
+	}
+	.left-bottom p i:hover{
+		cursor:pointer;
+		color:red;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="content clearfix">
+			<div class="left">
+				<div class="left-top clearfix">
+					<h3>热门目的地</h3>
+					<li>
+						<a href="javascript:void(0)">马来西亚</a>
+					</li>
+					<li class='w40'>
+						<a href="javascript:void(0)">泰国</a>
+					</li>
+					<li class='w40'>
+						<a href="javascript:void(0)">三亚</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)">新西兰</a>
+					</li>
+					<li class='w40'>
+						<a href="javascript:void(0)">云南</a>
+					</li>
+				</div>
+				<div class="left-bottom">
+					<!-- <p>
+						<span></span><i>x</i>
+					</p> -->
+				</div>
+			</div>
+			<div class="right">
+				<!-- <b></b> -->
+			</div>
+		</div>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aLi = document.getElementsByTagName('li');
+	var	oLeft = document.getElementsByClassName('left-bottom')[0];
+	var oRight = document.getElementsByClassName('right')[0];
+	var aA = document.getElementsByTagName('a');
+	var aI = document.getElementsByTagName('i');
+	var arr = ['马来西亚','泰国','三亚','新西兰','云南'];//存储所有的内容
+	var num = [];
+	var aP = document.getElementsByTagName('p');
+	var aB =  document.getElementsByTagName('b');
+
+	//为li添加内容
+	for(var i = 0;i<aA.length;i++){
+		aA[i].innerText = arr[i];
+		num.push(1);
+	}
+
+	//点击内容添加元素
+	for( var i=0;i<aLi.length;i++){
+		aLi[i].index = i;
+		aLi[i].onclick = function(){
+			num[this.index]++;
+			console.log(num[this.index]);
+			var oP = document.createElement('p');
+			oP.innerHTML = '<span>'+arr[this.index]+'</span><i>x</i>';
+			var oB = document.createElement('b');
+			oB.innerHTML = arr[this.index];
+
+			//判断条件是否符合
+			if(num[this.index]  == 2){
+				oRight.appendChild(oB);
+				oLeft.appendChild(oP);
+			}
+			for(var i=0;i<aI.length;i++){
+				aI[i].index = i;
+				aI[i].onclick = function(){
+					oLeft.removeChild(aP[this.index]);
+					oRight.removeChild(aB[this.index]);
+					num[this.index] = 1;
+				}
+			}
+		}
+	}
+
+ </script>
+</html>

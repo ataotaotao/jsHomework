@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,ul,p{
+		margin:0;
+		padding:0;
+	}
+	li{
+		list-style:none;
+	}
+	#wrap{
+		width:400px;
+		padding:10px;
+		margin:100px auto;
+		border:1px solid #ccc;
+	}
+	#wrap ul li{
+		height:100px;
+		border-bottom:1px solid #ccc;
+	}
+	#wrap ul li div{
+		display:inline-block;
+		width:200px;
+		margin-top:40px;
+		line-height:20px;
+		outline:0;
+		vertical-align:middle;
+	}
+	#wrap ul li button{
+		display:inline-block;
+		width:100px;
+		margin:40px 0 0 80px;
+		line-height:20px;
+		vertical-align:middle;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="wrap">
+		<ul>
+			<li>
+				<div class='box'>帅</div>
+				<button>南柯帅不帅</button>
+			</li>
+			<li>
+				<div class='box'>帅</div>
+				<button>南柯帅不帅</button>
+			</li>
+			<li>
+				<div class='box' contenteditable='false'>帅</div>
+				<button>南柯帅不帅</button>
+			</li>
+		</ul>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aDiv=document.getElementsByClassName('box');
+	var aBut=document.getElementsByTagName('button');
+	// console.log(aDiv[1].contenteditable);
+	//console.log(aP)
+
+	//点击变化颜色和字体
+
+	//字体为正常
+	for( var i=0;i<3;i++){
+		aBut[i].onoff=true;//不可编辑状态
+		aBut[i].index=i;
+		// console.log(aDiv[1].contenteditable);
+		aBut[i].onclick=function(){
+			// console.log(aDiv[this.index].contenteditable);
+			if(this.onoff){
+				aDiv[this.index].contentEditable=true;
+				this.style.cssText +='background-color:#000;color:#fff;'
+				this.innerText='帅';
+				// this.onoff=false;
+			}else{
+				aDiv[this.index].contentEditable=false;
+				this.style.cssText +='background-color:buttonface;color:#000;'
+				this.innerText='南柯帅不帅';
+				// this.onoff=true;
+			}
+			// console.log(aDiv[this.index].contenteditable);
+			this.onoff=!this.onoff;
+		}
+		// console.log(aDiv[this.index].contenteditable);
+	}
+ </script>
+</html>

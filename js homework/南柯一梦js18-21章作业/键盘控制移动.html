@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>键盘控制移动</title>
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+		}
+		#box{
+			position:absolute;
+			left:50%;
+			top:50%;
+			width:100px;
+			height:100px;
+			background-color:green;
+		}
+	</style>
+ </head>
+ <body>
+	<div id="box"></div>
+ </body>
+ <script>
+     var oBox = document.getElementById('box');
+
+     var timerL=null,timerR=null,timerT=null,timerB=null;
+     document.onkeydown = function(e){
+         console.log(e.keyCode);
+        switch(e.keyCode){
+            case 37://左
+                if(timerL == null){
+                    timerL=setInterval(function(){
+                        oBox.style.left = oBox.offsetLeft - 5 +'px';
+                    },1000/60);
+                }
+                break;
+            case 38://上
+                if(timerT == null){
+                    timerT=setInterval(function(){
+                        oBox.style.top = oBox.offsetTop - 5 +'px';
+                    },1000/60);
+                }
+                break;
+            case 39://右
+                if(timerR == null){
+                    timerR=setInterval(function(){
+                        oBox.style.left = oBox.offsetLeft + 5 +'px';
+                    },1000/60);
+                }
+                break;
+            case 40://下
+                if(timerB == null){
+                    timerB=setInterval(function(){
+                        oBox.style.top = oBox.offsetTop + 5 +'px';
+                    },1000/60);
+                }
+                break;
+            default:
+                break;
+        }
+     }
+
+     document.onkeyup = function(e){
+        switch(e.keyCode){
+            case 37:
+                clearInterval(timerL);
+                timerL = null;
+                break;
+            case 38:
+                clearInterval(timerT);
+                timerT = null;
+                break;
+            case 39:
+                clearInterval(timerR);
+                timerR = null;
+                break;
+            case 40:
+                clearInterval(timerB);
+                timerB = null;
+                break;
+
+        }
+     }
+ </script>
+</html>

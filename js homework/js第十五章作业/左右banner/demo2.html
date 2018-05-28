@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:relative;
+		width:945px;
+		height:700px;
+		margin:100px auto;
+		overflow:hidden;
+	}
+	.img{
+		position:absolute;
+		left:0;
+		top:0;
+		width:5670px;
+		height:700px;
+       /*  overflow:hidden; */
+	}
+	.img img{
+		float:left;
+		width:945px;
+		height:700px;
+	}
+	.btn{
+		position:absolute;
+		left:0;
+		right:0;
+		margin:auto;
+		bottom:20px;
+		width:145px;
+		height:20px;
+	}
+	.btn span{
+		display:inline-block;
+		width:15px;
+		height:15px;
+		border-radius:50%;
+		border:1px solid #ccc;
+		vertical-align:middle;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="img">
+			<img src="../images/1.jpg" alt="" width='945' height='700'/>
+			<img src="../images/2.jpg" alt="" width='945' height='700'/>
+			<img src="../images/3.png" alt="" width='945' height='700'/>
+			<img src="../images/4.jpg" alt="" width='945' height='700'/>
+			<img src="../images/5.jpg" alt="" width='945' height='700'/>
+			<img src="../images/6.jpg" alt="" width='945' height='700'/>
+		</div>
+		<div class="btn">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+ </body>
+ <script type="text/javascript" src='../js/animation()时间版框架.js'></script>
+ <script type="text/javascript">
+	var oImg=document.getElementsByClassName('img')[0];
+	var aSpan=document.getElementsByTagName('span');
+
+	//初始化
+	aSpan[0].style.backgroundColor='red';
+
+	//点击span切换
+	var num=0;
+	var left;
+	for( var i=0;i<aSpan.length;i++){
+		aSpan[i].index=i;
+		aSpan[i].onclick=function(){
+			aSpan[num].style.backgroundColor='';
+			left=parseFloat( getStyle(oImg,'left'));
+			//console.log( left );
+			//console.log(left);
+			animation.bind( this )( oImg,'left',left+(num - this.index)*945+'px',Math.abs(this.index - num)*1000);
+			this.style.backgroundColor='red';
+			num=this.index;
+		}
+	}
+ </script>
+</html>

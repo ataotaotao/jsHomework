@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body,p{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                position:relative;
+                width:224px;
+                height:300px;
+                margin:100px auto;
+                overflow:hidden;
+            }
+            #box p{
+                position:absolute;
+                left:0;
+                width:100%;
+                line-height:50px;
+                background-color:#000;
+                color:#fff;
+                text-align:center;
+                z-index:1;
+            }
+            #box .up{
+                top:0;
+            }
+            #box .down{
+                bottom:0;
+            }
+            #box .img{
+                position:absolute;
+                left:0;
+                width:224px;
+                height:720px;
+            }
+            #box .img img{
+                width:224px;
+                height:240px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <p class='up'>up</p>
+            <div class="img" style='top:50px;'>
+                <img src="images/scroll1.png" alt="" width='224' height='240'>
+                <img src="images/scroll2.png" alt="" width='224' height='240'>
+                <img src="images/scroll3.png" alt="" width='224' height='240'>
+            </div>
+            <p class='down'>down</p>
+        </div>
+    </body>
+    <script>
+        var aP=document.getElementsByTagName('p');
+        var oImg=document.getElementsByClassName('img')[0];
+
+        var timer;
+
+
+        var num=parseInt(oImg.style.top);
+        aP[0].onmousedown=function(){
+            timer=setInterval(function(){
+                num--;
+                oImg.style.top=num+'px';
+                if(num <=-500){
+                    num=-500;
+                    clearInterval( timer );
+                }
+            },20);
+        }
+        aP[0].onmouseup=function(){
+            clearInterval(timer);
+        };
+        aP[1].onmousedown=function(){
+            timer=setInterval(function(){
+                num++;
+                oImg.style.top=num+'px';
+                if(num >= 50){
+                    num=50;
+                    clearInterval( timer );
+                }
+            },20);
+        }
+        aP[1].onmouseup=function(){
+            clearInterval( timer );
+        }
+    </script>
+</html>

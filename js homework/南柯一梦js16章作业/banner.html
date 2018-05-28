@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>hello world~!!</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+    <style>
+        *{margin: 0;padding: 0;}
+        body{font:16px/1.5 'Microsoft Yahei';}
+        .clearfix:after{content:'';display:block;clear:both;}
+        .fl{float:left;}
+        .fr{float:right;}
+        #banner{
+            width:1130px;
+            overflow:hidden;
+            height:500px;
+            margin:auto;
+            position: relative;
+
+        }
+        #banner ul{
+            position:absolute;
+            left:0;
+        }
+        #banner ul li{
+            list-style: none;
+            float:left;
+            /*position: absolute;*/
+            /*top:0;*/
+            /*display:none;*/
+        }
+        #banner ul li img{
+            width:1130px;
+            height:500px;
+        }
+        #banner ul li.on{
+            display: block;
+        }
+        #banner ol{
+            position: absolute;
+            width:240px;
+            bottom:0;
+            left:50%;
+            margin-left:-120px;
+
+        }
+        #banner ol li{
+            display:inline-block;
+            height:5px;
+            width:30px;
+            margin:2px;
+            background: rgba(0,0,0,0.5);
+            cursor:pointer;
+        }
+        #banner ol li.on{
+            background: #f00;
+        }
+        #banner a{
+            position: absolute;
+            width:60px;
+            height:50px;
+            text-decoration: none;
+            background: rgba(0,0,0,0.5);
+            color:#fff;
+            font-size:50px;
+            text-align: center;
+            line-height:40px;
+            top:50%;
+            margin-top:-25px;
+
+        }
+        #banner a.next{
+            right:0px;
+        }
+        #banner a:hover{
+            background: rgba(0,0,0,0.3);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul>
+            <li class='on'><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.webp" alt=""></li>
+            <li><img src="images/4.webp" alt=""></li>
+            <li><img src="images/5.webp" alt=""></li>
+            <li><img src="images/1.jpg" alt=""></li>
+
+        </ul>
+        <ol>
+            <li class='on'></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+        <a class='prev' href="javascript:void(0)"> < </a>
+        <a class='next' href="javascript:void(0)"> > </a>
+    </div>
+</body>
+<script src='js/callback.js'></script>
+<script>
+
+    function Banner(){
+        this.oBanner = document.getElementById('banner');
+        this.oUl = document.getElementsByTagName('ul')[0];
+        this.aLi = document.querySelectorAll('#banner ul li');
+        this.oLi = document.querySelectorAll('#banner ol li');
+        this.aA = document.getElementsByTagName('a');
+        this.width = this.aLi[0].offsetWidth;
+        this.oUl.style.width = this.aLi[0].offsetWidth*this.aLi.length + 'px';
+        this.num = 0;//判断第几张
+    }
+
+    Banner.prototype.a_click = function(obj){
+        if(obj.index == 0 ){
+            if(this.num == 0){//判断，在num改变之前，是否为0，如果为0，那么就将oUl的left马上改变，拉到左边去
+                this.oUl.style.left = -(this.aLi.length-1)*this.width + 'px';
+                this.num = this.aLi.length - 1;
+            }
+            this.oLi[this.num%(this.aLi.length-1)].className = '';
+            this.num--;
+            this.oLi[this.num].className = 'on';
+            callbacks(this.oUl,{left: -this.num*this.width},1000);
+        }else{
+            if(this.num == (this.aLi.length-1)){
+                this.oUl.style.left = 0;
+                this.num = 0;
+            }
+            this.oLi[this.num].className = '';
+            this.num++;
+            this.oLi[this.num%(this.aLi.length-1)].className = 'on';
+        }
+        callbacks(this.oUl,{left: -this.num*this.width},1000);
+    }
+
+    Banner.prototype.oLi_click = function(obj){
+        this.oLi[this.num].className = '';
+        this.num = obj.index;
+        this.oLi[this.num].className = 'on';
+        callbacks(this.oUl,{left:-this.num*this.width},1000);
+    }
+    Banner.prototype.autoplay =function(){
+         if(this.num == (this.aLi.length-1)){
+            this.oUl.style.left = 0;
+            this.num = 0;
+        }
+        this.oLi[this.num].className = '';
+        this.num++;
+        this.oLi[this.num%(this.aLi.length-1)].className = 'on';
+        callbacks(this.oUl,{left: -this.num*this.width},1000);
+    }
+
+
+
+
+
+
+
+
+    function Banner_add(){
+        var proto = new Banner();
+        for(key in proto){
+            Banner_add.prototype[key] = proto[key];
+        }
+        //自动轮播
+        this.timer=setInterval(this.autoplay.bind(this),2000);
+
+        this.oBanner.onmouseenter = this.enter.bind(this);
+        this.oBanner.onmouseleave =this.leave.bind(this);
+
+
+    }
+
+
+
+
+    Banner_add.prototype.enter = function(){
+        var _this = this;
+        clearInterval(this.timer);
+        //左右点击
+        for(var i=0;i<this.aA.length;i++){
+            this.aA[i].index = i;
+            this.aA[i].onclick = function(){
+                _this.a_click.call(_this,this);
+            }
+        }
+
+        //点击按钮
+        for(var i=0;i<this.oLi.length;i++){
+            this.oLi[i].index = i;
+            this.oLi[i].onclick = function(){
+                _this.oLi_click.call(_this,this);
+            }
+        }
+    }
+
+    Banner_add.prototype.leave = function(){
+         this.timer=setInterval(this.autoplay.bind(this),2000);
+    }
+
+
+    new Banner_add();
+
+
+
+
+
+
+
+
+
+</script>
+</html>

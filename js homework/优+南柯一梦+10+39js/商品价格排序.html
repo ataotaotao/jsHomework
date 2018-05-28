@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body,ul,p{
+                margin:0;
+                padding:0;
+            }
+            ul{
+                list-style:none;
+            }
+            i{
+                font-style:normal;
+            }
+            .clearfix:after{
+                content:'';
+                display:block;
+                clear:both;
+            }
+            #box{
+                position:relative;
+                width:900px;
+                height:550px;
+                margin:100px auto;
+                border:1px solid #ccc;
+            }
+            .box{
+                width:900px;
+            }
+            #box li{
+                float:left;
+                width:200px;
+                height:230px;
+                margin:10px 12px;
+            }
+            #box li  img{
+                width:200px;
+                height:200px;
+            }
+            #box li p{
+				float:left;
+                line-height:30px;
+            }
+            #box li span{
+				float:right;
+                line-height:30px;
+            }
+            #box li span i{
+                color:red;
+            }
+            .btn{
+                position:absolute;
+                right:20px;
+                bottom:5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <ul class='box clearfix'>
+                <li>
+                    <img src="images/xh_img1.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>100</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img2.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>500</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img3.jpg" alt="" width='200' hxh_img1.jpgeight='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>600</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img4.jpg" alt="" wixh_img1.jpgdth='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>800</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img5.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>200</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img6.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>600</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img7.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>400</i>
+					</span>
+                </li>
+                <li>
+                    <img src="images/xh_img8.jpg" alt="" width='200' height='200'>
+                    <p>
+                        紫色冷艳系列
+					</p>
+					<span>
+						￥
+						<i>700</i>
+					</span>
+                </li>
+            </ul>
+            <div class="btn">
+				<button>随机</button>
+                <button>从低到高</button>
+                <button>从高到低</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        var oUl=document.getElementsByTagName('ul')[0];
+        var aLi=document.getElementsByTagName('li');
+        var aI=document.getElementsByTagName('i');
+		var aImg=document.getElementsByTagName('img');
+        var aBtn=document.getElementsByTagName('button');
+		var aP=document.getElementsByTagName('p');
+		var arr=[];
+
+		for( var i=0;i<aImg.length;i++){
+            arr[i]=[];
+			arr[i][0]=aImg[i].src;
+			arr[i][1]=aP[i].innerHTML;
+			arr[i][2]=Number(aI[i].innerHTML);
+		}
+		//console.log(arr);
+
+        //点击按钮改变顺序
+        for( var i=0;i<aBtn.length;i++){
+            aBtn[i].index=i;
+            aBtn[i].onclick=function(){
+                if( this.index==0){
+                    arr.sort(function(a,b){
+                        return Math.random()*10-5;
+                    });
+                }else if( this.index==1 ){
+                    arr.sort( function(a,b){
+                        return a[2]-b[2];//此处的ab参数代表了arr下面的元素，而arr下面的元素代表了一个一维数组，那么ab就代表了一维数组，所以在给数字排序的时候，必须加上下标
+                    })
+                }else{
+                    arr.sort( function(a,b){
+                        return b[2]-a[2];
+                    })
+                }
+
+                for( var i=0;i<aImg.length;i++ ){
+                    aImg[i].src=arr[i][0];
+                    aP[i].innerHTML=arr[i][1];
+                    aI[i].innerHTML=arr[i][2];
+                }
+            }
+        }
+    </script>
+</html>

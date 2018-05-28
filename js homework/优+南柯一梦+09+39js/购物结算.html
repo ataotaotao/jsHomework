@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,td,p{
+		margin:0;
+		padding:0;
+	}
+	b{
+		font-weight:normal;
+	}
+	i{
+		font-style:normal;
+	}
+	#box{
+		position:relative;
+		width:800px;
+		height:800px;
+		margin:100px auto;
+	}
+	#box table{
+		width:inherit;
+		border-collapse:collapse;
+	}
+	#box table tr{
+		border-bottom:1px solid #ccc;
+	}
+	#box table tr th{
+		width:200px;
+		line-height:50px;
+		background-color:#ccc;
+		font-size:20px;
+	}
+	#box table tr td{
+		width:200px;
+		text-align:center;
+	}
+	#box table tr td img{
+		width:150px;
+		height:150px;
+	}
+	#box table tr td button{
+		display:inline-block;
+		width:40px;
+		line-height:30px;
+		vertical-align:middle;
+	}
+	#box table tr td span{
+		display:inline-block;
+		width:55px;
+		line-height:35px;
+		border:1px solid #ccc;
+		vertical-align:middle;
+	}
+	#box .totle{
+		position:absolute;
+		right:50px;
+		bottom:0;
+		width:300px;
+		height:76px;
+	}
+	.totle p{
+		line-height:38px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<table>
+			<tr>
+				<th>商品</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th>小计</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="images/shop1.jpg" alt="" width='220' height='220'/>
+				</td>
+				<td class='price'>8</td>
+				<td>
+					<button class='less'>-</button>
+					<span>0</span>
+					<button class='more'>+</button>
+				</td>
+				<td class='all'>
+					0
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img src="images/shop2.jpg" alt="" width='220' height='220'/>
+				</td>
+				<td class='price'>10</td>
+				<td>
+					<button class='less'>-</button>
+					<span>0</span>
+					<button class='more'>+</button>
+				</td>
+				<td class='all'>
+					0
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<img src="images/shop3.jpg" alt="" width='220' height='220'/>
+				</td>
+				<td class='price'>12.5</td>
+				<td>
+					<button class='less'>-</button>
+					<span>0</span>
+					<button class='more'>+</button>
+				</td>
+				<td class='all'>
+					0
+				</td >
+			</tr>
+			<tr>
+				<td>
+					<img src="images/shop4.jpg" alt="" width='220' height='220'/>
+				</td>
+				<td class='price'>23</td>
+				<td>
+					<button class='less'>-</button>
+					<span>0</span>
+					<button class='more'>+</button>
+				</td>
+				<td class='all'>
+					0
+				</td>
+			</tr>
+		</table>
+		<div class="totle">
+			<p>
+				已选
+				<b>0</b>
+				个
+			</p>
+			<p>
+				已选
+				<i>0</i>
+				&yen;
+			</p>
+		</div>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aPrice=document.getElementsByClassName('price');
+	var aLess=document.getElementsByClassName('less');
+	var aMore=document.getElementsByClassName('more');
+	var aSpan=document.getElementsByTagName('span');
+	var aAll=document.getElementsByClassName('all');
+	var oB=document.getElementsByTagName('b')[0];
+	var oI=document.getElementsByTagName('i')[0];
+	
+	//var num=0;
+	for( var i=0;i<4;i++){
+		//点击加
+		aMore[i].index=i;
+		aMore[i].onclick=function(){
+			//num++;
+			aSpan[this.index].innerHTML =String( parseInt(aSpan[this.index].innerHTML)+1 );
+			aAll[this.index].innerHTML = String( parseInt(aSpan[this.index].innerHTML)* parseFloat( aPrice[this.index].innerHTML ));
+			//计算总价
+			oI.innerHTML = String( parseFloat( oI.innerHTML)+ parseFloat(aPrice[this.index].innerHTML));
+			//计算总个数
+			oB.innerHTML = String( parseInt( oB.innerHTML)+ 1);
+			//console.log(num);
+		}
+		//console.log(num);
+		//点击减
+		aLess[i].demo=i;
+		aLess[i].onclick=function(){
+			if( parseInt( aSpan[this.demo].innerHTML) <1){
+				aSpan[this.demo].innerHTML='1';
+			}
+			aSpan[this.demo].innerHTML =String( parseInt(aSpan[this.demo].innerHTML) - 1 );
+			aAll[this.demo].innerHTML = String( parseInt(aSpan[this.demo].innerHTML)* parseFloat( aPrice[this.demo].innerHTML ));
+			/*if( parseInt( aSpan[this.demo].innerHTML) >0){
+				//计算总价
+				oI.innerHTML = String( parseInt( oI.innerHTML)- parseInt( aPrice[this.demo].innerHTML));
+				//计算总个数
+				oB.innerHTML = String( parseInt( oB.innerHTML)- 1);
+			}else if(parseInt( aSpan[this.demo].innerHTML) =0){
+				//计算总价
+				oI.innerHTML = '0';
+				//计算总个数
+				oB.innerHTML = '0';
+			}*/
+			oI.innerHTML=String( parseFloat( aAll[0].innerHTML)+parseFloat( aAll[1].innerHTML)+parseFloat( aAll[2].innerHTML)+parseFloat( aAll[3].innerHTML) );
+			oB.innerHTML=String( parseFloat( aSpan[0].innerHTML)+parseFloat( aSpan[1].innerHTML)+parseFloat( aSpan[2].innerHTML)+parseFloat( aSpan[3].innerHTML) );
+		}
+	}
+ </script>
+</html>

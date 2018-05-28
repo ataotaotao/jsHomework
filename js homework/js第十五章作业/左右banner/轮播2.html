@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:relative;
+		width:945px;
+		height:288px;
+		margin:100px auto;
+		overflow:hidden;
+	}
+	.img{
+		position:absolute;
+		left:0;
+		top:0;
+		width:4725px;
+		height:288px;
+       /*  overflow:hidden; */
+	}
+	.img img{
+		float:left;
+		width:945px;
+		height:288px;
+	}
+	.btn{
+		position:absolute;
+		left:0;
+		right:0;
+		margin:auto;
+		bottom:20px;
+		width:120px;
+		height:20px;
+	}
+	.btn span{
+		display:inline-block;
+		width:15px;
+		height:15px;
+		border-radius:50%;
+		border:1px solid #ccc;
+		vertical-align:middle;
+	}
+	#box p{
+		position:absolute;
+		top:calc(50% - 25px);
+		width:40px;
+		line-height:50px;
+		background-color:rgba(0,0,0,.5);
+		text-align:center;
+		color:#fff;
+		font-size:30px;
+	}
+	#box .lt{
+		left:0;
+	}
+	#box .gt{
+		right:0;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="img">
+			<img src="../images1/1.jpg" alt="" width='945' height='288'/>
+			<img src="../images1/2.jpg" alt="" width='945' height='288'/>
+			<img src="../images1/3.png" alt="" width='945' height='288'/>
+			<img src="../images1/4.jpg" alt="" width='945' height='288'/>
+			<img src="../images1/5.jpg" alt="" width='945' height='288'/>
+		</div>
+		<div class="btn">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<p class='lt'>&lt;</p>
+		<p class='gt'>&gt;</p>
+	</div>
+ </body>
+<script type="text/javascript">
+	var aSpan=document.getElementsByTagName('span');
+	var aImg=document.getElementsByClassName('img')[0];
+	var aP=document.getElementsByTagName('p');
+	var num=0;
+	var left=0;
+	
+
+	//初始化span颜色
+	aSpan[0].style.backgroundColor='red';
+
+	//点击左右切换
+	for( var i=0;i<aP.length;i++){
+		aP[i].index=i;
+		aP[i].onclick=function(){
+			aSpan[num].style.backgroundColor='';
+			if(this.index==0){
+				num--;
+				num =Math.max(num,0);
+				if(left <0 ){
+					aImg.style.left=(left+945)+'px';
+				}
+			}else if(this.index==1){
+				num++;
+				num =Math.min(num,aSpan.length-1);
+				if(left >=-2835){
+					aImg.style.left=(left-945)+'px';
+				}
+			} 
+			aSpan[num].style.backgroundColor='red';
+			aImg.style.transition=1+'s linear';
+			left=parseInt(aImg.style.left);
+		}
+	}
+
+	//点击按钮切换图片
+	for( var i=0;i<aSpan.length;i++){
+		aSpan[i].index=i;
+		aSpan[i].onclick=function(){
+			if( num > this.index ){
+				aImg.style.left= left+(num-this.index)*945+'px';
+			}else{
+				aImg.style.left= left-(this.index-num)*945+'px';
+			}
+			aSpan[num].style.backgroundColor='';
+			this.style.backgroundColor='red';
+			aImg.style.transition=Math.abs(num-this.index)+'s linear';
+			num=this.index;
+			left=parseInt(aImg.style.left);
+		}
+	}
+	
+</script>
+</html>

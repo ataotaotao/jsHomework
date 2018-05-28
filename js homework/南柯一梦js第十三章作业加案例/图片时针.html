@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	.box{
+		width:350px;
+		margin:300px auto;
+		padding:20px;
+		border:1px solid #ccc;
+	}
+	.box img{
+		display:inline-block;
+		width:40px;
+		height:60px;
+		vertical-align:middle;
+	}
+	.box img:nth-child(3n){
+		width:20px;
+	}
+  </style>
+ </head>
+ <body>
+	<div class="box">
+		<img src='' alt="" width='40' height='60'/>
+		<img src='' alt="" width='40' height='60'/>
+		<img src='images/d.png' alt="" width='20' height='60'/>
+		<img src='' alt="" width='40' height='60'/>
+		<img src='' alt="" width='40' height='60'/>
+		<img src='images/d.png' alt="" width='20' height='60'/>
+		<img src='' alt="" width='40' height='60'/>
+		<img src='' alt="" width='40' height='60'/>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aImg=document.getElementsByTagName('img');
+	var arr=['images/0.png','images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png','images/7.png','images/8.png','images/9.png'];
+
+	setInterval( time(),1000);
+	//获取本地时间
+	function time(){
+		var date=new Date();
+		//console.log( date );
+		var hours= add(date.getHours());
+		var min= add(date.getMinutes());
+		var sec= add(date.getSeconds());
+
+		//console.log( hours,min,sec);
+		var hour=String(hours).split('');
+		var minutes=String(min).split('');
+		var seconds=String(sec).split('');
+		//console.log(hour);
+		//将时分秒转换为图片的src
+		aImg[0].src=arr[hour[0]];
+		aImg[1].src=arr[hour[1]];
+		aImg[3].src=arr[minutes[0]];
+		aImg[4].src=arr[minutes[1]];
+		aImg[6].src=arr[seconds[0]];
+		aImg[7].src=arr[seconds[1]];
+		//console.log( aImg[0].src,aImg[1].src,aImg[3].src,aImg[4].src,aImg[6].src,aImg[7].src);
+		return time;
+	}
+
+	function add(num){
+		return num = num >=10?num:'0'+num;
+	}
+ </script>
+</html>

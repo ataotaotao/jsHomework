@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,ul{
+		margin:0;
+		padding:0;
+	}
+	ul{
+		list-style:none;
+	}
+	.list{
+		width:400px;
+		padding:10px 0;
+		border:1px solid #ccc;
+		border-radius:5px;
+		margin:100px auto;
+	}
+	.list li{
+		background: url('images/ck.png') no-repeat 25px 25px;
+		line-height:70px;
+		font-size:30px;
+		text-indent:70px;
+	}
+	.list .checked{
+		text-indent:50px;
+	}
+  </style>
+ </head>
+ <body>
+	<ul class='list'>
+        <li>千寻老师</li>
+		<li>殇姐姐</li>
+		<li>兔姐姐</li>
+		<li>小青年</li>
+		<li>小可爱</li>
+		<li>南柯</li>
+		<li class='checked'>全选中就能吃兔子肉</li>
+	</ul>
+ </body>
+ <script>
+
+
+	//隔行变色
+    var aLi=document.getElementsByTagName('li');
+    var arr=['#a1a1a1','#ff9191','#79ff9b'];
+    var onoff=[true,true,true,true,true,true];
+
+
+    for( var i=0;i<6;i++){
+		//隔行变色
+       aLi[i].style.backgroundColor= arr[i%3];
+	   //点击选中
+       aLi[i].index=i;
+	   aLi[i].onclick=function(){
+            if(onoff[this.index]){
+			     this.style.cssText +='background-image:url("images/cked.jpg");text-indent:50px;';
+                 onoff[this.index]=false;
+            }else{
+                 this.style.cssText +='background-image:url("images/ck.png");text-indent:70px;';
+                 onoff[this.index]=true;
+            }
+	   }
+
+    }
+
+    //点击全部选中，再次点击就全部选不中
+    var judge=true;
+
+    aLi[6].onclick=function(){
+         if(judge){
+             this.style.backgroundImage='url("images/cked.jpg")';
+            for( var i=0;i<6;i++){
+                aLi[i].demo=i;
+                aLi[i].style.cssText +='background-image:url("images/cked.jpg");text-indent:50px;';
+                 onoff[this.demo]=false;
+                 // console.log( onoff[0],onoff[1],onoff[2],onoff[3],onoff[4],onoff[5]);
+            }
+            judge=false;
+         }else{
+            aLi[6].style.backgroundImage='url("images/ck.png")';
+            for( var i=0;i<6;i++){
+                aLi[i].demo=i;
+                aLi[i].style.cssText +='background-image:url("images/ck.png");text-indent:70px;';
+                 onoff[this.demo]=true;
+            }
+            judge=true;
+        }
+        // console.log(judge);
+    }
+    // // console.log(onoff);
+
+    //全部选中后，最后一个自动选中
+
+    // for( var i=0;i<6;i++){
+    //     if(onoff[i]){
+    //         aLi[6].style.backgroundImage='url("images/ck.png")';
+    //     }else{
+    //          aLi[6].style.backgroundImage='url("images/cked.jpg")';
+    //     }
+    // }
+    // if( a==false ){
+    //     alert( 'ok' );
+    // }
+
+    if( onoff[0]==false && onoff[1]==false && onoff[2]==false && onoff[3]==false && onoff[4]==false && onoff[5]==false){
+         aLi[6].style.backgroundImage='url("images/cked.jpg")';
+    }else{
+        aLi[6].style.backgroundImage='url("images/ck.png")';
+    }
+
+ </script>
+</html>

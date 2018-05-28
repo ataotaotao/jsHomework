@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,ul{
+		margin:0;
+		padding:0;
+	}
+	ul{
+		list-style:none;
+	}
+	i{
+		font-style:normal;
+	}
+	#box{
+		position:relative;
+		width:600px;
+		height:300px;
+		margin:50px auto;
+		border:1px solid red;
+		overflow:hidden;
+	}
+	#box ul{
+		position:absolute;
+		width:580px;
+		height:auto;
+		background-color:#cfcfcf;
+		text-align:center;
+	}
+	#box ul li{
+		line-height:40px;
+		border-top:1px solid white;
+		border-bottom:1px solid white;
+	}
+	#box .scroll{
+		float:right;
+		position:relative;
+		width:20px;
+		height:100%;
+	}
+	#box i{
+		position:absolute;
+		top:0;
+		width:100%;
+		height:40px;
+		border-radius:10px;
+		background-color:#ff6600;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box" onselectstart = 'return false'>
+		<ul class="cont">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+			<li>12</li>
+			<li>13</li>
+			<li>14</li>
+			<li>15</li>
+			<li>16</li>
+			<li>17</li>
+			<li>18</li>
+			<li>19</li>
+			<li>20</li>
+		</ul>
+		<div class="scroll">
+			<i></i>
+		</div>
+	</div>
+ </body>
+ <script type="text/javascript" src='js/addEvent.js'></script>
+ <script type="text/javascript">
+	var oBox = document.getElementById('box');
+	var oUl = document.getElementsByTagName('ul')[0];
+	var oScroll = document.getElementsByClassName('scroll')[0];
+	var oI = document.getElementsByTagName('i')[0];
+
+	//计算初始值
+	var ul_maxV = oUl.offsetHeight - oBox.offsetHeight;
+
+	//计算滚动条的长度
+	oI.style.height = (oBox.offsetHeight / oUl.offsetHeight) * oBox.offsetHeight +'px';
+	var scroll_maxV = oBox.offsetHeight - oI.offsetHeight;
+
+	oI.onmousedown = function(e){
+		var initY = e.clientY;//鼠标按下的位置x
+		//console.log(offset)
+		document.onmousemove = function(e){
+			//小滚轮自身的变化
+			var offset = oI.offsetTop;
+			var moveY = e.clientY - initY;//和上一次相比移动的距离
+			initY = e.clientY;
+			var value = offset + moveY;
+			value = Math.max(value,0);
+			value = Math.min(value,scroll_maxV);
+			oI.style.top = value +'px';
+			
+			//ul的变化
+			var prop = value / scroll_maxV;
+			oUl.style.top = - prop * ul_maxV + 'px';
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+			document.onmouseup = null;
+		}
+	}
+
+
+	addEvent(oBox,'mousewheel',handle,false);
+
+	function handle(e){
+		var offset = oI.offsetTop;
+		var value = offset - e.wheel/20;
+		value = Math.max(value,0);
+		value = Math.min(value,scroll_maxV);
+		oI.style.top = value +'px';
+		
+		//ul的变化
+		var prop = value / scroll_maxV;
+		oUl.style.top = - prop * ul_maxV + 'px';
+	}
+ </script>
+</html>

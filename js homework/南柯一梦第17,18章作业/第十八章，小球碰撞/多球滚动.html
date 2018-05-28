@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,p{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:relative;
+	}
+	#box p{
+		position:absolute;
+		width:20px;
+		height:20px;
+		border-radius:50%;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+		<p></p>
+	</div>
+ </body>
+ <script type="text/javascript" src='js/取随机颜色值之rgb.js'></script>
+ <script type="text/javascript">
+	var aP = document.getElementsByTagName('p');
+
+    var maxL = document.documentElement.clientWidth - aP[0].offsetWidth;
+    var maxT = document.documentElement.clientHeight - aP[0].offsetHeight;
+
+	//给小球上色
+	var offsetL = [];
+	var offsetT = [];
+    var move_x = [];
+    var move_y = [];//x,y方向位移
+	for(var i = 0;i<aP.length;i++){
+		move_x[i] = i+10;
+		move_y[i] = i+10;
+		aP[i].style.backgroundColor = color_rgb();
+		offsetL[i] = aP[i].offsetLeft;
+		offsetT[i] = aP[i].offsetTop;
+        setInterval(function(){
+            offsetL[this] += move_x[this];//速度
+            offsetT[this] += move_y[this];
+
+            //限定范围
+            if(offsetL[this] > maxL || offsetL[this]< 0){
+                offsetL[this] = Math.max(offsetL[this],0);
+                offsetL[this] = Math.min(offsetL[this],maxL );
+                move_x[this] = - move_x[this];
+            }
+
+            if(offsetT[this] > maxT || offsetT[this]< 0){
+                offsetT[this] = Math.max(offsetT[this],0);
+                offsetT[this] = Math.min(offsetT[this],maxT );
+                move_y[this] = - move_y[this];
+            }
+
+
+            aP[this].style.top = offsetT[this] +'px';
+            aP[this].style.left = offsetL[this] + 'px';
+        }.bind(i),1000/60);
+	}
+
+ </script>
+</html>

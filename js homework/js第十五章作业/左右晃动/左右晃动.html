@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:relative;
+		width:258px;
+		height:194px;
+		margin:100px auto;
+	}
+	#box img{
+		position:absolute;
+		left:0;
+		top:0;
+		width:258px;
+		height:194px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<img src="../images/1.gif" alt="" width='258' height='194'/>
+	</div>
+ </body>
+ <script type="text/javascript" src='../js/animation()时间版框架.js'></script>
+ <script type="text/javascript">
+	var oImg=document.getElementsByTagName('img')[0];
+	var arr=[];
+	var num =0;
+	var timer;
+	var onoff;
+	for( var i=20;i>=0;i--){
+		arr.push(i,-i);
+	}
+
+	//鼠标划入img之后就发生左右震动
+	oImg.onmouseenter=function(){
+		if(onoff){return 666};
+		onoff = true;// 震动未结束，false为结束
+		timer = setInterval(function(){
+			if( num > arr.length -1){
+				onoff =false;
+				clearInterval( timer );
+			}
+			oImg.style.left = arr[num++] + 'px';
+		},50);
+	}
+
+	
+ </script>
+</html>

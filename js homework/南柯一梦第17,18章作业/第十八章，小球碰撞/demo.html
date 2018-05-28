@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:absolute;
+		width:50px;
+		height:50px;
+		background-color:green;
+		border-radius:50%;
+	}
+  </style>
+ </head>
+ <body>
+  <div id="box"></div>
+ </body>
+ <script type="text/javascript">
+	var oBox = document.getElementById('box');
+
+	//定义最大距离
+	var maxL = document.documentElement.clientWidth - oBox.offsetWidth;
+	var maxT = document.documentElement.clientHeight - oBox.offsetHeight;
+
+	//小球碰壁，跳动
+	var move_x = 10;//定义速度
+	var move_y = 8;
+	var offsetL = oBox.offsetLeft;
+	var offsetT = oBox.offsetTop;
+	setInterval(function(){
+
+		offsetL += move_x;
+		offsetT += move_y;
+
+		//判断是否碰壁
+		if( offsetL > maxL || offsetL < 0 ){
+			offsetL = Math.max( offsetL,0 );
+			offsetL = Math.min( offsetL,maxL );
+			move_x = - move_x;
+		}
+
+		if( offsetT > maxT || offsetT <0 ){
+			offsetT = Math.max( offsetT,0 );
+			offsetT = Math.min( offsetT,maxT );
+			move_y = - move_y;
+		}
+
+		oBox.style.left = offsetL + 'px';
+		oBox.style.top = offsetT + 'px';
+	},1000/60);
+
+
+
+
+
+ </script>
+</html>

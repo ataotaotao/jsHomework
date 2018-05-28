@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body,p{
+		margin:0;
+		padding:0;
+	}
+	i{
+		font-style:normal;
+	}
+	#box{
+		width:420px;
+		height:100px;
+		margin:100px auto;
+		border:1px solid #ffcc00;
+	}
+	.star{
+		float:left;
+		width:320px;
+		height:100px;
+	}
+	.star span{
+		float:left;
+		display:block;
+		padding:10px 0 0 5px;
+		width:95px;
+		height:95px;
+	}
+    .star-area{
+        float:left;
+        height:25px;
+        width:125px;
+        margin-top:10px;
+    }
+	.star p{
+		float:left;
+		width:25px;
+		height:25px;
+		background:url('images/star.png') no-repeat 0 0;
+	}
+	.desription{
+		float:right;
+		width:80px;
+		height:80px;
+		margin:10px 10px 0 0;
+		border:1px solid #ffcc33;
+	}
+	.star .bg{
+		background-position:0 -28px;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="star">
+			<span>星级评分</span>
+            <div class="star-area">
+    			<p></p>
+    			<p></p>
+    			<p></p>
+    			<p></p>
+    			<p></p>
+            </div>
+		</div>
+		<div class="desription">请添加评分</div>
+	</div>
+ </body>
+ <script type="text/javascript">
+	var aP=document.getElementsByTagName('p');
+	var oRecom=document.getElementsByClassName('desription')[0];
+    var oStar=document.getElementsByClassName('star-area')[0];
+	var arr=['很差','差','一般','推荐','力荐','请添加评分'];
+	//console.log( oRecom.innerHTML );
+
+	//鼠标移动上去
+	//var onoff=true;
+    var num=-1;
+	for( var i=0;i<5;i++){
+		aP[i].index=i;
+		//aP[i].onoff=true;
+		//鼠标移动上去
+		aP[i].onmouseenter=function(){
+            for( var j=0;j<aP.length;j++){
+                aP[j].className='';
+                if( j<=this.index){
+                    aP[j].className='bg';
+                }
+            }
+			oRecom.innerHTML = arr[this.index];
+        }
+        aP[i].onclick=function(){
+            num=this.index;
+        }
+        //console.log( aP[i].onoff );
+    }
+
+    oStar.onmouseleave=function(){
+       for( var i=0;i<aP.length;i++){
+            if( i<= num){
+                aP[i].className='bg';
+            }else{
+                aP[i].className='';
+            }
+		oRecom.innerHTML=arr[num+1];
+       }
+    }
+            // this.onmouseleave=function(){
+            //     this.className='';
+            //     for( var j=0;j<=this.index;j++){
+            //          aP[j].className='';
+            //      }
+            //      oRecom.innerHTML = arr[5];
+            // }
+
+		// aP[i].onclick=function(){
+		// 	this.onoff=false;
+  //           if(this.onoff){
+  //               this.onmouseleave=function(){
+  //                   this.className='';
+  //                   for( var j=0;j<=this.index;j++){
+  //                        aP[j].className='';
+  //                   }
+  //                   oRecom.innerHTML = arr[5];
+  //               }
+  //           }else{
+  //               this.onmouseleave=function(){
+  //                   this.className='bg';
+  //                   for( var j=0;j<=5;j++){
+  //                       aP[j].className='bg';
+  //                       if(j>this.index){
+  //                           aP[j].className='';
+  //                       }
+  //                   }
+  //                   oRecom.innerHTML=arr[this.index];
+  //               }
+  //           }
+		// }
+
+        // aP[i].onclick=function(){
+        //     for( var j=0;j<aP.length;j++){
+        //         aP[j].className='';
+        //         if( j<=this.index){
+        //             aP[j].className='bg';
+        //         }
+        //     }
+        //     //alert(555);
+        // }
+        // oStar.onmouseleave=function(){
+        //     for( var i=0;i<aP.length;i++){
+        //         aP[i].className='';
+        //         oRecom.innerHTML = arr[i];
+        //     }
+        // }
+        //console.log( aP[i].onoff);
+        //this.onoff=true;
+
+		// aP[i].onclick=function(){
+  //           this.onoff=!this.onoff;
+		// }
+		// console.log( aP[i].onoff );
+		// if( aP[i].onoff){
+		// 	aP[i].onmouseleave=function(){
+		// 		this.className='';
+
+		// 		for( var j=0;j<=this.index;j++){
+		// 			aP[j].className='';
+		// 		}
+		// 		oRecom.innerHTML = arr[5];
+		// 	}
+		// }else{
+		// 	aP[i].onmouseleave=function(){
+		// 		this.className='bg';
+		// 		for( var j=0;j<=this.index;j++){
+		// 			aP[j].className='bg';
+		// 		}
+		// 		oRecom.innerHTML=arr[this.index];
+		// 	}
+		// }
+		//鼠标移出
+
+	//点击星星
+	// for( var i=0;i<5;i++){
+	// 	aP[i].onclick=function(){
+	// 		this.className='bg';
+	// 	}
+	// }
+ </script>
+</html>

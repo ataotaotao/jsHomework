@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		position:relative;
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:absolute;
+		left:0;
+		top:0;
+		width:50px;
+		height:50px;
+		background-color:green;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box"></div>
+ </body>
+ <script type="text/javascript">
+	var oBox = document.getElementById('box');
+    var move_x;
+    var move_y;
+    var maxT = document.documentElement.clientHeight - oBox.offsetHeight;
+    var maxL = document.documentElement.clientWidth - oBox.offsetWidth;
+    console.log(maxL);
+    var offsetT;
+    var offsetL;
+    var timer;
+
+
+    //拖拽
+    //不更新
+    // oBox.onmousedown = function(e){
+    //     e = e || window.event;
+    //     var init_x = e.clientX;//获取到鼠标按下的初始位置
+    //     var init_y = e.clientY;
+
+    //     var init_l = oBox.offsetLeft;//获取到oBox的初始位置
+    //     var init_t = oBox.offsetTop;
+
+    //     document.onmousemove = function(e){
+    //         e = e || window.event;
+    //         var move_x = e.clientX - init_x;//移动距离
+    //         var move_y = e.clientY - init_y;
+
+
+    //         oBox.style.top = init_t + move_y + 'px';
+    //         oBox.style.left = init_l + move_x + 'px';
+    //     }
+
+    //     document.onmouseup = function(){
+    //         document.onmousemove = null;
+    //         document.onmouseup = null;
+    //     }
+
+    //     return false;
+    // }
+
+    //更新
+    oBox.onmousedown = function(e){
+        clearInterval(timer);//在下一次按下的时候清除上一次设置的定时器
+        e = e || window.event;
+        var init_x = e.clientX;//获取到鼠标按下的初始位置
+        var init_y = e.clientY;
+
+        var init_l = oBox.offsetLeft;//获取到oBox的初始位置
+        var init_t = oBox.offsetTop;
+
+        document.onmousemove = function(e){
+            e = e || window.event;
+            move_x = e.clientX - init_x;//每次移动距离
+            move_y = e.clientY - init_y;
+
+            init_x = e.clientX;//每次更新为上一次移动到的位置
+            init_y = e.clientY;
+
+
+            oBox.style.top = oBox.offsetTop + move_y + 'px';
+            oBox.style.left = oBox.offsetLeft + move_x + 'px';
+            //console.log(move_x)
+        }
+
+        document.onmouseup = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+
+            //抛出
+
+            timer = setInterval(function(){
+
+                move_y += 3;//加上了向下的力
+
+                init_t += move_y;//加上速度
+                init_l += move_x;
+
+                offsetT = oBox.offsetTop + move_y;
+                offsetL = oBox.offsetLeft + move_x;
+
+                //限定边界
+                if(offsetT > maxT || offsetT < 0){
+                    offsetT =Math.max( offsetT,0);
+                    offsetT = Math.min( maxT,offsetT);
+                    move_x = move_x * 0.9;
+                    move_y =  - move_y*0.9;
+                }
+                if(offsetL > maxL || offsetL < 0){
+                    offsetL =Math.max( offsetL,0);
+                    offsetL = Math.min( maxL,offsetL);
+                    move_x = -move_x *0.9;
+                    move_y = move_y *0.9
+                }
+
+                //当move_x,move_y足够小的时候，直接让他变成0
+                if( Math.abs(move_x) < 0.001){
+                    move_x = 0;
+                }
+                if( Math.abs(move_y) < 0.001){
+                    move_y = 0;
+                }
+
+                //判断定时器停止
+                if( move_x == 0 && move_y == 0 && offsetT == maxT ){
+                    clearInterval(timer);
+                }
+
+                oBox.style.top = offsetT + 'px';
+                oBox.style.left = offsetL + 'px';
+            },1000/60);
+        }
+
+        return false;
+    }
+ </script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                width:400px;
+                margin:100px auto;
+                overflow:hidden;
+            }
+            #box img{
+                width:400px;
+                height:300px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box" style='height:0;'>
+            <img src="images/mnls.jpg" alt="" width='400' height='300'>
+        </div>
+    </body>
+    <script>
+        var oBox=document.getElementById('box');
+        var num=parseInt(oBox.style.height);
+        //console.log(num);
+
+        //定时器增加高度
+        function run(){
+            num +=2;
+            oBox.style.height=num +'px';
+
+            if( num <300){
+                setTimeout( run,20);
+            }
+
+            console.log(num);
+        }
+        //console.log( num );
+
+        run();
+
+
+
+        //oBox.style.height=String( num +'px');
+    </script>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+      body{
+        margin:0;
+        padding:0;
+      }
+      #box{
+        position:relative;
+        width:600px;
+        padding:10px;
+        margin:100px auto 0;
+        border:1px solid #ccc;
+        font-size:20px;
+      }
+      #box span{
+        display:inline-block;
+        width:150px;
+        border:1px solid #ccc;
+      }
+      .time{
+        display:inline;
+      }
+      #box button{
+        position:absolute;
+        right:0;
+        top:calc( 50% - 15px);
+        width:70px;
+        line-height:30px;
+        text-align:center;
+      }
+      #wrap{
+        width:520px;
+        margin:auto;
+      }
+  </style>
+ </head>
+ <body>
+    <div id="box">
+        距离
+        <span contenteditable='true'></span>
+        还有
+        <div class="time"></div>
+        <button>点击倒数</button>
+    </div>
+    <div id="wrap">
+        注意：这个时间的写法得用连字符-连接，如2019-12-25
+    </div>
+ </body>
+ <script src='js/add.js'></script>
+ <script>
+     var oSpan=document.getElementsByTagName('span')[0];
+     var oTime=document.getElementsByClassName('time')[0];
+     var oBtn=document.getElementsByTagName('button')[0];
+
+     //获取时间
+     function run(){
+         var date= new Date();
+         var ms=date.getTime();
+         //console.log( ms );
+         var arr=oSpan.innerHTML.split('-');
+         //console.log( arr );
+         var d=new Date(Number(arr[0]),Number(arr[1])-1,Number(arr[2]) );
+         //console.log( d );
+         var dTime=d.getTime();
+         //console.log( dTime );
+         var times=Math.floor((dTime-ms)/1000);//获取到时间差值的总秒数
+         //console.log( times );
+         var sec=times%60;//获取距离时间的秒数
+         //console.log( sec );
+         var min= (times-sec)/60%60;//获取距离时间的分钟数
+         //console.log( min );
+         var hours=((times-sec)/60-min)/60%24;//获取距离时间的小时数
+        // console.log( hours );
+         var dat=(((times-sec)/60-min)/60-hours)/24;//获取距离时间的天数
+         //console.log(dat);
+
+         oTime.innerHTML=dat+'天'+add(hours)+'时'+add(min)+'分'+add(sec)+'秒';
+         return run;
+    }
+    oBtn.onclick=function(){
+        if( oSpan.innerHTML!=''){
+            setInterval(run(),1000);
+        //console.log(1);
+        }
+    }
+ </script>
+</html>

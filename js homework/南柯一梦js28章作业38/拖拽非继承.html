@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+	}
+	#box{
+		position:absolute;
+		left:0;
+		top:0;
+		width:100px;
+		height:100px;
+		background-color:green;
+	}
+  </style>
+ </head>
+ <body>
+	<div id="box"></div>
+ </body>
+ <script type="text/javascript">
+
+
+    /*
+        1、将所有代码放在构造函数中
+        2、将所有的变量变为属性
+    */
+
+
+        function Drag(){
+            var _this = this;
+            this.oBox = document.getElementById('box');
+
+            this.maxT = document.documentElement.clientHeight - this.oBox.offsetHeight;
+            this.maxL = document.documentElement.clientWidth - this.oBox.offsetWidth;
+
+            this.oBox.onmousedown = function(){
+                _this.down.call(_this);
+            }
+        }
+
+        Drag.prototype.down = function(e){
+            var _this = this;
+
+            e = e || window.event;
+
+            //首先获取到初始数据
+            this.init_x = e.clientX;
+            this.init_y = e.clientY;
+            document.onmousemove = function(){
+                _this.move.call(_this);
+            }
+            document.onmouseup = function(){
+                _this.up();
+            }
+        }
+
+        Drag.prototype.up = function(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        Drag.prototype.move =  function(e){
+
+            e = e || window.event;
+
+            this.move_x = e.clientX - this.init_x;
+            this.move_y = e.clientY - this.init_y;//移动距离
+
+            this.init_x = e.clientX;
+            this.init_y = e.clientY;
+
+            this.offsetL = this.oBox.offsetLeft + this.move_x;
+            this.offsetT = this.oBox.offsetTop + this.move_y;
+
+            if(this.offsetL > this.maxL || this.offsetL < 0){
+                this.offsetL = Math.max(this.offsetL,0);
+                this.offsetL = Math.min(this.offsetL,this.maxL);
+            }
+
+            if(this.offsetT > this.maxT || this.offsetT < 0){
+                this.offsetT = Math.max(this.offsetT,0);
+                this.offsetT = Math.min(this.offsetT,this.maxT);
+            }
+
+            this.oBox.style.left = this.offsetL +'px';
+            this.oBox.style.top = this.offsetT + 'px';
+        }
+
+
+        new Drag();
+
+
+
+	//拖拽面向对象改写
+
+	/*
+		1、将代码放入到构造函数中去。
+		2、将var全变为this属性
+		3、将函数变为方法
+	*/
+
+
+        // function Drag(){
+        //     this.oBox = document.getElementById('box');
+
+        //     //拖拽一般
+        //     this.oBox.onmousedown = this.down.bind(this);
+        //         return false;
+        // }
+
+
+
+        // Drag.prototype.down =function(e){
+        //     this.init_x = this.oBox.offsetLeft;
+        //     this.init_y = this.oBox.offsetTop;
+        //     this.clientX = e.clientX;
+        //     this.clientY = e.clientY;
+
+        //     //移动
+        //     document.onmousemove = this.move.bind(this);
+
+        //     document.onmouseup = this.up;
+        // }
+
+        // Drag.prototype.move=function(e){
+        //     this.moveX = e.clientX - this.clientX;
+        //     this.moveY = e.clientY - this.clientY;
+
+        //     this.oBox.style.left = this.init_x + this.moveX +'px';
+        //     this.oBox.style.top = this.init_y + this.moveY + 'px';
+        // }
+
+
+
+        // Drag.prototype.up = function(){
+        //     document.onmousemove = null;
+        //     document.onmouseup = null;
+        // }
+
+
+
+        //      new Drag();
+
+ </script>
+</html>

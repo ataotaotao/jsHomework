@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body,h3,p{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                width:400px;
+                margin:100px auto;
+                border:1px solid #ccc;
+            }
+            #box .part{
+                width:380px;
+                padding:10px;
+                border-bottom:1px solid #ccc;
+            }
+            .part h3,.part p{
+                line-height:30px;
+                font-size:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <div class='part'>
+                <h3>东京时间</h3>
+                <p></p>
+            </div>
+            <div class='part'>
+                <h3>北京时间</h3>
+                <p></p>
+            </div>
+            <div class='part'>
+                <h3>伦敦时间</h3>
+                <p></p>
+            </div>
+            <div class='part'>
+                <h3>纽约时间</h3>
+                <p></p>
+            </div>
+        </div>
+    </body>
+    <script src='js/add.js'></script>
+    <script>
+        var aP=document.getElementsByTagName('p');
+        var arr=['日','一','二','三','四','五','六'];
+        var arr1=[9,8,0,-5];
+        setInterval(function(){
+            arr1.forEach(function(value,index){
+                worldT(aP[index],value);
+
+            })
+        },1000);
+        //worldT(aP[0]);
+        function worldT( obj ,value){
+            var d=new Date();
+            var ms=d.getTime();//获取当前时间的毫秒数，
+            var offset= d.getTimezoneOffset()*60*1000;//获取到了与零时区的差值毫秒数。
+            var standard= ms + offset+value*60*60*1000;
+            //console.log( standard );
+
+            var worldT=new Date(standard);
+            //console.log( worldT );
+            var year =worldT.getFullYear();
+            var mon = worldT.getMonth()+1;
+            var dat = worldT.getDate();
+            var day = worldT.getDay();
+            var hour = worldT.getHours();
+            var min = worldT.getMinutes();
+            var sec = worldT.getSeconds();
+
+            //写入时间
+            obj.innerHTML = year+'年'+add(mon)+'月'+add(dat)+'日 星期'+arr[day]+':'+add(hour)+'时'+add(min)+'分'+add(sec)+'秒';
+            //return worldT;
+        }
+
+
+    </script>
+</html>

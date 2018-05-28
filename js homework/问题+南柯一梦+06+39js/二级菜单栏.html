@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style type="text/css">
+		body,ul,h3{
+			margin:0;
+			padding:0
+		}
+		ul{
+			list-style:none;
+		}
+		a{
+			text-decoration:none;
+			color:#000;
+		}
+		h1,h2,h3,h4,h5,h6{
+			font-size:16px;
+			font-weight:normal;
+		}
+		#box{
+			width:100px;
+			margin:50px auto;
+			text-align:center;
+		}
+		#box > div {
+			border:1px solid #000;
+		}
+		#box > div h3{
+			line-height:35px;
+			background-color:#b164ff;
+			font-size:18px;
+			font-weight:bold;
+			color:#fff;
+		}
+		#box > div ul{
+			display:none;
+		}
+		#box > div ul li{
+			line-height:30px;
+			border:1px dashed gray;
+		}
+  </style>
+ </head>
+ <body>
+	<div id="box">
+		<div class="top">
+			<h3>大佬</h3>
+			<ul>
+				<li>
+					<a href="#">小白</a>
+				</li>
+				<li>
+					<a href="#">墨哈</a>
+				</li>
+				<li>
+					<a href="#">桂仔</a>
+				</li>
+			</ul>
+		</div>
+		<div class="middle">
+			<h3>学神</h3>
+			<ul>
+				<li>
+					<a href="#">小青年</a>
+				</li>
+				<li>
+					<a href="#">兔姐姐</a>
+				</li>
+				<li>
+					<a href="#">殇姐姐</a>
+				</li>
+			</ul>
+		</div>
+		<div class="bottom">
+			<h3>菜鸡</h3>
+			<ul>
+				<li>
+					<a href="#">南柯</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+ </body>
+ <script>
+ 	var oH=document.getElementsByTagName('h3');
+ 	var aLi=document.getElementsByTagName('li');
+ 	var aUl=document.getElementsByTagName('ul');
+ 	var aLi=document.getElementsByTagName('li');
+
+ 	//点击h3  ul出现
+    var onoff=false;
+ 	for( var i=0;i<3;i++){
+	 	oH[i].index=0;
+	 	oH[i].demo=i;
+	 	oH[i].onclick=function(){
+	 		if(onoff){
+	 			aUl[this.demo].style.display='none';
+                onoff=false;
+	 		}else{
+	 			aUl[this.demo].style.display='block';
+                onoff=true;
+	 		}
+	 	}
+	 }//这个用开关就不会有点击两次才出现的问题，用奇偶判断法就会有。
+
+	 //触发li标签变色
+
+	 // for( var i=0;i<3;i++){
+	 // 	for( var j=0;j<3;j++){
+  //           aLi[i*3+j].index=i*3+j;
+  //           var num=aLi[i*3+j].index;
+	 // 		aLi[i*3+j].onclick=function(){
+	 // 			this.style.backgroundColor='red';
+  //               aLi[num].style.backgroundColor='transparent';
+	 // 		}
+	 // 	}
+	 // }
+
+     for( var i=0;i<7;i++){
+        aLi[i].index=i;
+        var num=aLi[i].index;
+        aLi[i].onclick=function(){
+            aLi[num].style.backgroundColor='transparent';
+            this.style.backgroundColor='red';
+        }
+     }
+ </script>
+</html>

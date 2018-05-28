@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>demo</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link href=" " rel="stylesheet">
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            #box{
+                position:relative;
+                width:500px;
+                height:500px;
+                margin:200px auto;
+                border:1px solid #ccc;
+                border-radius:50%;
+            }
+            #box span{
+                position:absolute;
+                width:20px;
+                height:20px;
+                border-radius:50%;
+                background-color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box">
+            <span style='left:-10px;top:calc(50% - 10px);'></span>
+        </div>
+    </body>
+    <script>
+        var oSpan=document.getElementsByTagName('span')[0];
+        var degree=0;
+
+        //顺时针
+        setInterval(function(){
+            degree+=2;
+            oSpan.style.left=(250*(1-Math.sin(degree*Math.PI/180) )-10)+'px';
+            oSpan.style.top=(490-250*(1-Math.cos(degree*Math.PI/180) )) +'px';
+        },20);
+
+        //逆时针
+        // setInterval(function(){
+        //     degree++;
+        //     oSpan.style.left=(250*(1-Math.cos(degree*Math.PI/180) )-10)+'px';
+        //     oSpan.style.top=(490-250*(1-Math.sin(degree*Math.PI/180) )) +'px';
+        // },20);
+    </script>
+</html>
